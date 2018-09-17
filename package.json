@@ -1,5 +1,5 @@
 {
-  "name": "historyextension",
+  "name": "histextension",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,13 +11,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "watch": "npm-watch"
-  },
-  "watch": {
-    "build": "src/"
-  },
-  "devDependencies": {
-    "npm-watch": "^0.4.0"
+    "eject": "react-scripts eject"
   }
 }
