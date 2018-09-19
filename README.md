@@ -6,3 +6,8 @@ My goal is to create a Chrome extension that will allow a user to highlight text
 
 Right Click to Search,
 Icon to generate Random Event?
+
+## Technologies Used
+
+- React
+- Webpack (css-loader, babel-loader)
