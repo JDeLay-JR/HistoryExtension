@@ -6,6 +6,14 @@
         "default_title": "History Extension",
         "default_popup": "/public/index.html"
     },
+    "background": {
+        "scripts":["/background.js"]
+    },
+    "permissions": [
+        "contextMenus",
+        "storage",
+        "notifications"
+      ],
     "content_scripts": [
         {
             "matches": [
