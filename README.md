@@ -11,3 +11,7 @@ Icon to generate Random Event?
 
 - React
 - Webpack (css-loader, babel-loader)
+- Chrome Extension APIs
+  - Chrome Context Menus
+  - Chrome Messaging
+  - Chrome Storage
