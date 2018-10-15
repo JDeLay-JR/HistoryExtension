@@ -11,36 +11,31 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      response: [],
+      youtubeResponse: [],
     };
   }
 
   componentDidMount() {
-    chrome.storage.sync.get((stored) => {
-      const historyData = stored.selectedText.split(' ').join('_');
-
-      axios.post(`${url}${historyData}`)
-        .then((response) => {
-          this.setState({ response: response.data });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+    chrome.storage.sync.get(async (youtubeResponse) => {
+      console.log(`YouTube FE Response: ${youtubeResponse}`);
+      this.setState({ youtubeResponse });
     });
   }
 
   render() {
-    const { response } = this.state;
+    const { youtubeResponse } = this.state;
     return (
       <div id="test">
         <h1>History Component</h1>
         <p>Test</p>
-        {response.map((data) => {
+        {youtubeResponse.map((video) => {
           return (
-            <div key={data.id}>
-              <ReactPlayer url={data.link} />
+            <div>
+              <ol>
+                <li>{video.link}</li>
+              </ol>
             </div>
-          );
+          )
         })}
       </div>
     );

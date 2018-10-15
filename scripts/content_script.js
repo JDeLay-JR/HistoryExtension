@@ -1,15 +1,21 @@
 /* global chrome */
 
 // Grabs text and sends it to React Component
-document.addEventListener('mouseup', () => {
-  const selectedText = window.getSelection().toString();
-  chrome.storage.sync.set({ selectedText });
+document.addEventListener('mouseup', async () => {
+  let selectedText = window.getSelection().toString();
+  selectedText = selectedText.split(' ').join('_');
+  const youtubeRequest = new XMLHttpRequest();
+  youtubeRequest.open("POST", `http://localhost:8080/api/youtube/${selectedText}`);
+  youtubeRequest.send()
+    .then((youtubeResponse) => {
+      chrome.storage.sync.set({ youtubeResponse });
+    });
 });
 
 // Listens for openPopup from background.js; Injects React iFrame into current tab
 chrome.runtime.onMessage.addListener((request) => {
   if (request.type === 'openPopup') {
-    document.body.innerHTML += `<dialog style="height:40%">
+    document.body.innerHTML += `<dialog style="height:60%">
         <iframe id="headlineFetcher"style="height:100%"></iframe>
         <div style="position:absolute; top:0px; left:5px;">
             <button>x</button>
