@@ -21,7 +21,7 @@
             "matches": [
                 "<all_urls>"
             ],
-            "js": ["/scripts/content_script.js"]
+            "js": ["/scripts/content_script.js","/client/App.jsx"]
         }
     ],
     "web_accessible_resources" : ["*.html"]

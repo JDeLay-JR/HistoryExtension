@@ -1,31 +1,47 @@
 /* global chrome */
 
 import React, { Component } from 'react';
+import axios from 'axios';
+import ReactPlayer from 'react-player';
+import { url } from '../secrets_file';
 import './App.css';
+
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      text: 'Helllllllo',
-      storage: 'empty',
+      response: [],
     };
   }
 
   componentDidMount() {
     chrome.storage.sync.get((stored) => {
-      this.setState({ storage: stored.selectedText });
+      const historyData = stored.selectedText.split(' ').join('_');
+
+      axios.post(`${url}${historyData}`)
+        .then((response) => {
+          this.setState({ response: response.data });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     });
   }
 
   render() {
-    const { text, storage } = this.state;
+    const { response } = this.state;
     return (
       <div id="test">
         <h1>History Component</h1>
         <p>Test</p>
-        <p>{text}</p>
-        <p>{storage}</p>
+        {response.map((data) => {
+          return (
+            <div key={data.id}>
+              <ReactPlayer url={data.link} />
+            </div>
+          );
+        })}
       </div>
     );
   }
