@@ -10,8 +10,10 @@ Icon to generate Random Event?
 ## Technologies Used
 
 - React
+- Express.js
 - Webpack (css-loader, babel-loader)
 - Chrome Extension APIs
   - Chrome Context Menus
   - Chrome Messaging
   - Chrome Storage
+  - Editing Default Extensions CSP settings to allow YouTube API
