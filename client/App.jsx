@@ -7,17 +7,28 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      wikiReponse: "",
+      wikiResponse: [[], [], [], []],
       err: false
     }
   }
+
+  chooseCategory(category) {
+    const url = `https://en.wikipedia.org/w/api.php?
+    format=json&
+    action=query&
+    prop=extracts&exintro&explaintext&redirects=1&
+    titles=${category}`
+  }
+
   componentDidMount() {
-    
     chrome.storage.sync.get(async storage => {
       const url = `https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${encodeURI(storage.selectedText)}`
       fetch(url)
       .then(res => res.json())
-      .then(json => console.log(json))
+      .then(json => {
+        console.log(json)
+        this.setState({wikiResponse: json})
+      })
       .catch(err => {
         this.setState({err: true})
       })
@@ -25,9 +36,17 @@ class App extends Component {
   }
 
   render() {
+    const { wikiResponse } = this.state
+    const titles = wikiResponse[1]
     return (
-      <div id="test">
-        <p>Test</p>
+      <div>
+        {
+          titles.map(category => {
+            return (
+              <p>{category}</p>
+            )
+          })
+        }
       </div>
     )
   }

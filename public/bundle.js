@@ -167,13 +167,18 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this));
     _this.state = {
-      wikiReponse: "",
+      wikiResponse: [[], [], [], []],
       err: false
     };
     return _this;
   }
 
   _createClass(App, [{
+    key: "chooseCategory",
+    value: function chooseCategory(category) {
+      var url = "https://en.wikipedia.org/w/api.php?\n    format=json&\n    action=query&\n    prop=extracts&exintro&explaintext&redirects=1&\n    titles=".concat(category);
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
@@ -193,7 +198,11 @@ function (_Component) {
                   fetch(url).then(function (res) {
                     return res.json();
                   }).then(function (json) {
-                    return console.log(json);
+                    console.log(json);
+
+                    _this2.setState({
+                      wikiResponse: json
+                    });
                   })["catch"](function (err) {
                     _this2.setState({
                       err: true
@@ -216,9 +225,11 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "test"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Test"));
+      var wikiResponse = this.state.wikiResponse;
+      var titles = wikiResponse[1];
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, titles.map(function (category) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, category);
+      }));
     }
   }]);
 
